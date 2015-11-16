@@ -4,8 +4,8 @@ controlled-merge is a utility function to merge a number of javascript objects i
 
 __merge([onConflict], [objects]);__
 
-* onConflict(objectOne, objectTwo)
-  * Optional function to define what happens when non objects are detected and conflict. By default, it will assign the later merge object over the earlier one.
+* onConflict(objectOne, objectTwo, attr)
+  * Optional function to define what happens when non objects are detected and conflict. By default, it will assign the later merge object over the earlier one. The name of the conflicting attribute will be present as the third parameter.
 * objects
   * Either a singular array of all objects passed in, or manually passed in arguments.
 
@@ -34,19 +34,27 @@ var z =
   {
     'value': 3
   };
+var conflictingKeys = [];
   
 var results = merge(
-  function(obj1, obj2){
+  function(obj1, obj2, attr){
+    conflictingKeys.push(attr);
     return obj1 > obj2 ? obj1 : obj2;
   },
   x, y, z
 );
-//Results =
+
+//results =
 {
   'test': 'This is a test string',
   'also': 'is a test',
   'value': 3
 }
+
+//conflictingKeys = 
+[
+  'value'
+]
 
 ```
 

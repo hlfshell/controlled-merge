@@ -28,7 +28,7 @@ module.exports = function(){
 			} else if(typeof result[attr] == 'object' && typeof obj2[attr] == 'object'){
 				result[attr] = iterateAndMerge(obj1[attr], obj2[attr]);
 			} else if(onConflict){
-				result[attr] = onConflict(obj1[attr], obj2[attr]);
+				result[attr] = onConflict(obj1[attr], obj2[attr], attr);
 			} else {
 				result[attr] = clone(obj2[attr]);
 			}
