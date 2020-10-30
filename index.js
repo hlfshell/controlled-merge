@@ -41,7 +41,12 @@ module.exports = function(){
 				else result[item] = true;
 			});
 		} else {
+			allowedAttrs = Object.getOwnPropertyNames(obj2)
 			for(var attr in obj2){
+				//This is a safety check to prevent attr being specified as __proto__ or non object types
+				if(!allowedAttrs.includes(attr)){
+					continue
+				}
 				if(!result[attr]){
 					result[attr] = clone(obj2[attr]);
 				} else if(typeof result[attr] == 'object' && typeof obj2[attr] == 'object'){
